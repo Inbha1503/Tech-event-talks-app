@@ -673,3 +673,63 @@ body.light-theme .orb {
     font-size: 0.85rem;
     margin-top: auto;
 }
+
+/* 3D Floating Objects */
+.floating-object {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+    filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.45));
+    transition: var(--transition-smooth);
+}
+
+.obj-bq-db {
+    top: 15%;
+    left: 6%;
+    animation: float-db 12s infinite ease-in-out;
+}
+
+.obj-tw-logo {
+    bottom: 12%;
+    left: 42%;
+    animation: float-tw 16s infinite ease-in-out;
+}
+
+.obj-bq-chart {
+    top: 25%;
+    right: 8%;
+    animation: float-chart 10s infinite ease-in-out;
+}
+
+@keyframes float-db {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg) scale(1);
+    }
+    50% {
+        transform: translateY(-30px) rotate(8deg) scale(1.05);
+    }
+}
+
+@keyframes float-tw {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg) scale(0.95);
+    }
+    50% {
+        transform: translateY(-35px) rotate(-15deg) scale(1.05);
+    }
+}
+
+@keyframes float-chart {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg) scale(1);
+    }
+    50% {
+        transform: translateY(-25px) rotate(-8deg) scale(1.08);
+    }
+}
+
+/* Light Theme overrides for 3D Objects */
+body.light-theme .floating-object {
+    filter: drop-shadow(0 15px 25px rgba(0, 0, 0, 0.12));
+    opacity: 0.75;
+}

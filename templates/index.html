@@ -19,6 +19,72 @@
         <div class="orb orb-1"></div>
         <div class="orb orb-2"></div>
         <div class="orb orb-3"></div>
+        
+        <!-- 3D Floating Elements -->
+        <div class="floating-object obj-bq-db">
+            <svg viewBox="0 0 120 120" width="130" height="130">
+                <defs>
+                    <linearGradient id="dbGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#60a5fa" />
+                        <stop offset="100%" stop-color="#1d4ed8" />
+                    </linearGradient>
+                    <linearGradient id="dbTopGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" stop-color="#93c5fd" />
+                        <stop offset="100%" stop-color="#3b82f6" />
+                    </linearGradient>
+                </defs>
+                <path d="M10 30 C 10 15, 110 15, 110 30 L 110 50 C 110 65, 10 65, 10 50 Z" fill="url(#dbGrad)" />
+                <ellipse cx="60" cy="30" rx="50" ry="15" fill="url(#dbTopGrad)" />
+                
+                <path d="M10 60 C 10 45, 110 45, 110 60 L 110 80 C 110 95, 10 95, 10 80 Z" fill="url(#dbGrad)" />
+                <ellipse cx="60" cy="60" rx="50" ry="15" fill="url(#dbTopGrad)" />
+                
+                <path d="M10 90 C 10 75, 110 75, 110 90 L 110 110 C 110 125, 10 125, 10 110 Z" fill="url(#dbGrad)" />
+                <ellipse cx="60" cy="90" rx="50" ry="15" fill="url(#dbTopGrad)" />
+            </svg>
+        </div>
+        
+        <div class="floating-object obj-tw-logo">
+            <svg viewBox="0 0 100 100" width="110" height="110">
+                <defs>
+                    <linearGradient id="twGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#38bdf8" />
+                        <stop offset="100%" stop-color="#0284c7" />
+                    </linearGradient>
+                    <filter id="shadow3d">
+                        <feDropShadow dx="4" dy="8" stdDeviation="4" flood-opacity="0.3"/>
+                    </filter>
+                </defs>
+                <g filter="url(#shadow3d)">
+                    <rect x="15" y="15" width="70" height="50" rx="15" fill="url(#twGrad)" />
+                    <path d="M30 65 L 20 80 L 45 65 Z" fill="url(#twGrad)" />
+                    <path d="M38 30 H 45 L 62 50 H 55 Z" fill="#ffffff" opacity="0.9" />
+                    <path d="M62 30 H 55 L 38 50 H 45 Z" fill="#ffffff" opacity="0.9" />
+                </g>
+            </svg>
+        </div>
+        
+        <div class="floating-object obj-bq-chart">
+            <svg viewBox="0 0 120 120" width="110" height="110">
+                <defs>
+                    <linearGradient id="chartGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#f472b6" />
+                        <stop offset="100%" stop-color="#be185d" />
+                    </linearGradient>
+                    <linearGradient id="chartSideGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#ec4899" />
+                        <stop offset="100%" stop-color="#9d174d" />
+                    </linearGradient>
+                </defs>
+                <path d="M20 90 L 40 75 L 40 110 L 20 110 Z" fill="url(#chartSideGrad)" />
+                <path d="M40 75 L 60 90 L 60 110 L 40 110 Z" fill="url(#chartGrad)" />
+                <path d="M20 90 L 40 75 L 60 90 L 40 105 Z" fill="#fbcfe8" opacity="0.6" />
+                
+                <path d="M65 50 L 85 35 L 85 110 L 65 110 Z" fill="url(#chartSideGrad)" />
+                <path d="M85 35 L 105 50 L 105 110 L 85 110 Z" fill="url(#chartGrad)" />
+                <path d="M65 50 L 85 35 L 105 50 L 85 65 Z" fill="#fbcfe8" opacity="0.6" />
+            </svg>
+        </div>
     </div>
     
     <header class="app-header">
