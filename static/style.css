@@ -332,19 +332,43 @@ body {
     color: #d1d5db;
 }
 
-.quick-tweet-btn {
+.card-action-btns {
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+}
+
+.card-action-btn {
     background: transparent;
     border: none;
     color: var(--text-muted);
     cursor: pointer;
     transition: var(--transition-smooth);
-    padding: 0.25rem;
+    padding: 0.35rem;
     border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.quick-tweet-btn:hover {
+.card-action-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--text-primary);
+}
+
+.card-action-btn.quick-tweet-btn:hover {
     color: var(--twitter-blue);
     background: rgba(29, 155, 240, 0.1);
+}
+
+.card-action-btn.copy-btn:hover {
+    color: var(--success-color);
+    background: rgba(16, 185, 129, 0.1);
+}
+
+.card-action-btn.copied {
+    color: var(--success-color) !important;
+    background: rgba(16, 185, 129, 0.15) !important;
 }
 
 .update-content {

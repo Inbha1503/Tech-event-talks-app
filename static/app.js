@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Elements
     const refreshBtn = document.getElementById('refresh-btn');
+    const exportCsvBtn = document.getElementById('export-csv-btn');
     const updateCount = document.getElementById('update-count');
     const errorAlert = document.getElementById('error-alert');
     const retryBtn = document.getElementById('retry-btn');
@@ -130,14 +131,45 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.innerHTML = `
                     <div class="update-meta">
                         <span class="update-type-tag ${typeClass}">${up.type}</span>
-                        <button class="quick-tweet-btn" title="Tweet this directly" aria-label="Tweet this update">
-                            <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
-                            </svg>
-                        </button>
+                        <div class="card-action-btns">
+                            <button class="card-action-btn copy-btn" title="Copy to clipboard" aria-label="Copy update to clipboard">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="16" height="16">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 7.5V6.108c0-1.135.845-2.098 1.976-2.192.373-.03.748-.057 1.123-.08M15.75 18H18a2.25 2.25 0 002.25-2.25V6.108c0-1.135-.845-2.098-1.976-2.192a48.424 48.424 0 00-1.123-.08M15.75 18.75v-1.875a3.375 3.375 0 00-3.375-3.375h-1.5a1.125 1.125 0 01-1.125-1.125v-1.5A3.375 3.375 0 006.375 7.5H5.25m11.9-3.664A2.251 2.251 0 0015 2.25h-1.5a2.251 2.251 0 00-2.15 1.586m5.8 0c.065.21.1.433.1.664v.75h-6V4.5c0-.231.035-.454.1-.664M6.75 7.5H4.875c-.621 0-1.125.504-1.125 1.125v12c0 .621.504 1.125 1.125 1.125h9.75c.621 0 1.125-.504 1.125-1.125V16.5a9 9 0 00-9-9z" />
+                                </svg>
+                            </button>
+                            <button class="card-action-btn quick-tweet-btn" title="Tweet this directly" aria-label="Tweet this update">
+                                <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                     <div class="update-content">${up.html}</div>
                 `;
+
+                // Copy to clipboard click handler
+                const copyBtn = card.querySelector('.copy-btn');
+                copyBtn.addEventListener('click', async (e) => {
+                    e.stopPropagation();
+                    const textToCopy = `[BigQuery ${up.type}] ${up.text}\nSource: ${up.link}`;
+                    try {
+                        await navigator.clipboard.writeText(textToCopy);
+                        copyBtn.classList.add('copied');
+                        // Show checkmark icon temporarily
+                        const originalSvg = copyBtn.innerHTML;
+                        copyBtn.innerHTML = `
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="16" height="16">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                            </svg>
+                        `;
+                        setTimeout(() => {
+                            copyBtn.classList.remove('copied');
+                            copyBtn.innerHTML = originalSvg;
+                        }, 2000);
+                    } catch (err) {
+                        console.error('Failed to copy text: ', err);
+                    }
+                });
 
                 // Quick tweet icon click handler
                 const quickTweet = card.querySelector('.quick-tweet-btn');
@@ -252,8 +284,51 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Export data to CSV
+    function exportToCSV() {
+        if (allReleases.length === 0) {
+            alert('No release notes available to export.');
+            return;
+        }
+
+        // CSV Header
+        const headers = ['Date', 'Type', 'Content', 'Link'];
+        
+        // Escape helper for CSV cells
+        const escapeCSV = (text) => {
+            if (text === null || text === undefined) return '';
+            const stringified = String(text).replace(/"/g, '""');
+            return `"${stringified}"`;
+        };
+
+        const csvRows = [];
+        csvRows.push(headers.join(','));
+
+        allReleases.forEach(up => {
+            const row = [
+                escapeCSV(up.date),
+                escapeCSV(up.type),
+                escapeCSV(up.text),
+                escapeCSV(up.link)
+            ];
+            csvRows.push(row.join(','));
+        });
+
+        const csvContent = '\ufeff' + csvRows.join('\n'); // Add UTF-8 BOM for Excel support
+        const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.setAttribute('href', url);
+        link.setAttribute('download', `bigquery_release_notes_${new Date().toISOString().split('T')[0]}.csv`);
+        link.style.visibility = 'hidden';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
     // Event Listeners
     refreshBtn.addEventListener('click', loadReleases);
+    exportCsvBtn.addEventListener('click', exportToCSV);
     retryBtn.addEventListener('click', loadReleases);
     tweetTextarea.addEventListener('input', updateCharCounter);
     
