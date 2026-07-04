@@ -31,13 +31,18 @@
     --border-radius-md: 10px;
     --border-radius-sm: 6px;
     --bg-inset: rgba(0, 0, 0, 0.2);
+    
+    --dot-color: rgba(255, 255, 255, 0.06);
+    --card-glare: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0) 100%);
+    --card-shadow: 0 16px 40px 0 rgba(0, 0, 0, 0.45), inset 1px 1px 0 rgba(255, 255, 255, 0.15), inset -1px -1px 0 rgba(0, 0, 0, 0.2);
+    --update-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.2), inset 1px 1px 0 rgba(255, 255, 255, 0.08), inset -1px -1px 0 rgba(0, 0, 0, 0.15);
 }
 
 /* Light Theme Overrides */
 body.light-theme {
     --bg-primary: #f8fafc;
     --bg-secondary: #ffffff;
-    --bg-glass: rgba(255, 255, 255, 0.65);
+    --bg-glass: rgba(255, 255, 255, 0.55);
     --border-color: rgba(15, 23, 42, 0.06);
     --text-primary: #0f172a;
     --text-secondary: #334155;
@@ -45,6 +50,11 @@ body.light-theme {
     --primary-glow: rgba(59, 130, 246, 0.08);
     --accent-glow: rgba(236, 72, 153, 0.08);
     --bg-inset: rgba(15, 23, 42, 0.04);
+    
+    --dot-color: rgba(15, 23, 42, 0.04);
+    --card-glare: linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0) 100%);
+    --card-shadow: 0 16px 40px 0 rgba(15, 23, 42, 0.05), inset 1px 1px 0 rgba(255, 255, 255, 0.6), inset -1px -1px 0 rgba(15, 23, 42, 0.02);
+    --update-shadow: 0 4px 16px 0 rgba(15, 23, 42, 0.02), inset 1px 1px 0 rgba(255, 255, 255, 0.4), inset -1px -1px 0 rgba(15, 23, 42, 0.01);
 }
 
 * {
@@ -73,6 +83,16 @@ body {
     overflow: hidden;
     background-color: var(--bg-primary);
     pointer-events: none;
+}
+
+.bg-gradient-glow::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(var(--dot-color) 1.5px, transparent 1.5px);
+    background-size: 32px 32px;
+    pointer-events: none;
+    z-index: 0;
 }
 
 .orb {
@@ -267,14 +287,14 @@ body.light-theme .orb {
 
 /* Cards */
 .card {
-    background: var(--bg-glass);
+    background: var(--card-glare), var(--bg-glass);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-lg);
     padding: 1.5rem;
     transition: var(--transition-smooth);
     backdrop-filter: blur(16px) saturate(180%);
     -webkit-backdrop-filter: blur(16px) saturate(180%);
-    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.25);
+    box-shadow: var(--card-shadow);
 }
 
 /* Release Feed Items */
@@ -285,13 +305,13 @@ body.light-theme .orb {
 }
 
 .release-group {
-    background: rgba(22, 31, 48, 0.25);
+    background: rgba(22, 31, 48, 0.2);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-lg);
     padding: 1.25rem;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.15);
+    box-shadow: 0 8px 24px 0 rgba(0, 0, 0, 0.15);
 }
 
 .release-date-header {
@@ -313,7 +333,7 @@ body.light-theme .orb {
 }
 
 .update-card {
-    background: var(--bg-glass);
+    background: var(--card-glare), var(--bg-glass);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-md);
     padding: 1.25rem;
@@ -324,7 +344,7 @@ body.light-theme .orb {
     overflow: hidden;
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
-    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.08);
+    box-shadow: var(--update-shadow);
 }
 
 .update-card:last-child {
