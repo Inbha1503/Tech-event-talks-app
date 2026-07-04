@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BigQuery Release Notes Hub</title>
+    <meta name="description" content="Stay updated with the latest BigQuery features, changes, and deprecations. Select updates and tweet about them.">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- CSS Stylesheet -->
+    <link rel="stylesheet" href="/static/style.css">
+    <!-- Favicon placeholder or styling -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>⚡</text></svg>">
+</head>
+<body>
+    <div class="bg-gradient-glow"></div>
+    
+    <header class="app-header">
+        <div class="container header-container">
+            <div class="logo-area">
+                <span class="logo-icon">⚡</span>
+                <h1>BigQuery <span class="gradient-text">Release Notes</span></h1>
+            </div>
+            <div class="actions-area">
+                <button id="refresh-btn" class="btn btn-primary" aria-label="Refresh release notes">
+                    <svg class="spinner-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" width="20" height="20">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span>Refresh</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container main-layout">
+        <section class="feed-section">
+            <div class="section-header">
+                <h2>Latest Updates</h2>
+                <span id="update-count" class="badge">Loading...</span>
+            </div>
+            
+            <div id="error-alert" class="alert alert-danger hidden">
+                <p>Failed to load release notes. Please try again.</p>
+                <button id="retry-btn" class="btn btn-sm btn-outline">Retry</button>
+            </div>
+            
+            <div id="loading-skeleton" class="skeleton-container">
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+                <div class="skeleton-card"></div>
+            </div>
+
+            <div id="feed-list" class="feed-list">
+                <!-- Release cards will be inserted here dynamically -->
+            </div>
+        </section>
+
+        <section class="composer-section">
+            <div class="sticky-composer">
+                <div class="card composer-card">
+                    <div class="composer-header">
+                        <h3>Tweet Composer</h3>
+                        <span class="composer-subtitle">Select an update on the left to compose a tweet.</span>
+                    </div>
+                    
+                    <div class="composer-body">
+                        <div class="tweet-preview-container">
+                            <div class="tweet-user-meta">
+                                <div class="avatar-placeholder">BQ</div>
+                                <div>
+                                    <div class="user-name">BigQuery Analyst</div>
+                                    <div class="user-handle">@bq_updates</div>
+                                </div>
+                            </div>
+                            <textarea id="tweet-textarea" class="tweet-textarea" placeholder="Select an update from the feed or write your tweet here..." maxlength="280"></textarea>
+                            
+                            <div class="tweet-meta-info">
+                                <span id="char-counter" class="char-counter">280</span>
+                            </div>
+                        </div>
+
+                        <div class="tweet-actions">
+                            <button id="tweet-btn" class="btn btn-twitter" disabled>
+                                <svg class="twitter-icon" viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                                </svg>
+                                Tweet Update
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer class="app-footer">
+            <div class="container">
+                <p>&copy; 2026 BigQuery Release Notes Hub. Powered by Flask & Vanilla Web Tech.</p>
+            </div>
+        </footer>
+
+        <script src="/static/app.js"></script>
+</body>
+</html>
