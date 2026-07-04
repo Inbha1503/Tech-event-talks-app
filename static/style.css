@@ -30,6 +30,21 @@
     --border-radius-lg: 16px;
     --border-radius-md: 10px;
     --border-radius-sm: 6px;
+    --bg-inset: rgba(0, 0, 0, 0.2);
+}
+
+/* Light Theme Overrides */
+body.light-theme {
+    --bg-primary: #f8fafc;
+    --bg-secondary: #ffffff;
+    --bg-glass: rgba(248, 250, 252, 0.75);
+    --border-color: rgba(15, 23, 42, 0.08);
+    --text-primary: #0f172a;
+    --text-secondary: #334155;
+    --text-muted: #64748b;
+    --primary-glow: rgba(59, 130, 246, 0.08);
+    --accent-glow: rgba(236, 72, 153, 0.08);
+    --bg-inset: rgba(15, 23, 42, 0.04);
 }
 
 * {
@@ -432,7 +447,7 @@ body {
 }
 
 .tweet-preview-container {
-    background: rgba(0, 0, 0, 0.2);
+    background: var(--bg-inset);
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius-md);
     padding: 1.25rem;
